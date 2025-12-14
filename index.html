@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nurul Nadhrah - Student Bento Grid Landing Page</title>
+    <title>Nurul Nadhrah - Student Bento Grid Landing Page (Finalized)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Colors */
-            --color-background: #F8F9FA; /* Soft White/Light Grey */
-            --color-card-bg: #FFFFFF; /* Pure White for Cards */
-            --color-text-primary: #212529; /* Dark Grey/Near Black */
-            --color-text-secondary: #6C757D; /* Medium Grey */
-            --color-accent: #0A66C2; /* Deep Ocean Blue (LinkedIn Blue/UMT Theme Suggestion) */
-            --color-border: #E9ECEF; /* Very Light Grey Border */
+            --color-background: #F8F9FA;
+            --color-card-bg: #FFFFFF;
+            --color-text-primary: #212529; /* Dark text for light cards */
+            --color-text-secondary: #6C757D;
+            --color-accent: #0A66C2; /* Deep Ocean Blue */
+            --color-border: #E9ECEF;
+            --color-text-on-dark: #FFFFFF; /* New color variable for text on dark backgrounds */
 
             /* Typography */
             --font-primary: 'Inter', sans-serif;
@@ -41,13 +42,13 @@
 
         .container {
             width: 100%;
-            max-width: 1200px; /* Max width for desktop grid */
+            max-width: 1200px;
         }
 
         .bento-grid {
             display: grid;
             gap: var(--spacing-lg);
-            grid-template-columns: repeat(1, 1fr); /* Default: single column for mobile */
+            grid-template-columns: repeat(1, 1fr); /* Mobile Default */
             padding-bottom: var(--spacing-lg);
         }
 
@@ -55,43 +56,20 @@
         @media (min-width: 768px) {
             .bento-grid {
                 grid-template-columns: repeat(4, 1fr);
+                
+                grid-template-areas:
+                    "profile profile location subjects"
+                    "profile profile case hobby reflection"
+                    "playlist playlist playlist playlist";
             }
 
-            /* Card 1 (Profile): Large box (2x2) */
-            .card-1 {
-                grid-column: span 2;
-                grid-row: span 2;
-            }
-
-            /* Card 2 (Location): Small box (1x1) */
-            .card-2 {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-
-            /* Card 3 (Tech Stack): Medium box (1x1) */
-            .card-3 {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-
-            /* Card 4 (Case Study): Medium box (2x1) - takes the spot under Card 1 */
-            .card-4 {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
-
-            /* Card 5 (Hobby): Small box (1x1) - fits in remaining space */
-            .card-5 {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-
-            /* Card 6 (Playlist): Wide box (4x1) - spans the full width at the bottom */
-            .card-6 {
-                grid-column: span 4;
-                grid-row: span 1;
-            }
+            .card-1 { grid-area: profile; }
+            .card-2 { grid-area: location; }
+            .card-3 { grid-area: subjects; }
+            .card-4 { grid-area: case; }
+            .card-5 { grid-area: hobby; }
+            .card-7 { grid-area: reflection; }
+            .card-6 { grid-area: playlist; }
         }
 
         .bento-card {
@@ -102,127 +80,74 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Ensures content stays within rounded corners */
-        }
-
-        /* Specific Card Styles */
-
-        /* Card 1: Profile */
-        .card-1 {
-            justify-content: space-between;
-        }
-        .profile-header {
-            margin-bottom: var(--spacing-lg);
-        }
-        .profile-header h1 {
-            margin: 0 0 var(--spacing-sm) 0;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--color-text-primary);
-        }
-        .profile-header p {
-            margin: 0;
-            font-size: 1rem;
-            color: var(--color-text-secondary);
-        }
-        .social-links {
-            display: flex;
-            gap: var(--spacing-md);
-            margin-top: auto; /* Push links to the bottom */
-        }
-        .social-links a {
-            color: var(--color-accent);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-        .social-links a:hover {
-            color: var(--color-text-primary);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        /* Card 2, 3, 4, 5 Header/Content Styling */
-        .card-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-md);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+        .bento-card:hover {
+            transform: translateY(-2px) scale(1.01); 
+            box-shadow: 0 8px 12px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
 
-        .card-content {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--color-text-primary);
+        /* ------------------------------------------- */
+        /* START: PROFILE CARD (CARD 1) IMAGE UPDATE */
+        /* ------------------------------------------- */
+        .card-1 { 
+            justify-content: space-between; 
+            /* Background Image Properties */
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* Ensure dark background text is readable */
+            color: var(--color-text-on-dark); 
         }
+
+        /* Override specific text elements within card-1 to ensure they are white */
+        .card-1 h1, 
+        .card-1 p, 
+        .card-1 .card-title {
+            color: var(--color-text-on-dark) !important;
+        }
+
+        /* Ensure social links are still highlighted, perhaps with a slight border or shadow */
+        .social-links a { 
+            color: var(--color-accent); 
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Shadow for visibility */
+        }
+        
+        /* ------------------------------------------- */
+        /* END: PROFILE CARD (CARD 1) IMAGE UPDATE */
+        /* ------------------------------------------- */
+
+
+        /* --- GENERAL CONTENT STYLES (Retained) --- */
+        
+        /* General Card Content */
+        .card-title { 
+            font-size: 1rem; 
+            font-weight: 600; 
+            color: var(--color-text-secondary); /* Default dark text color */
+            margin-bottom: var(--spacing-md); 
+            letter-spacing: 0.05em; 
+            text-transform: uppercase; 
+        }
+        .card-content { font-size: 1.2rem; font-weight: 500; color: var(--color-text-primary); }
 
         /* Card 2: Location/Time */
-        .card-2 .card-content {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        .card-2 .time {
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: var(--color-accent);
-            margin-top: var(--spacing-sm);
-        }
-
-        /* Card 3: Tech Stack/Subjects */
-        .subject-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .subject-list li {
-            padding: var(--spacing-sm) 0;
-            border-bottom: 1px solid var(--color-border);
-            font-size: 1rem;
-            color: var(--color-text-primary);
-        }
-        .subject-list li:last-child {
-            border-bottom: none;
-        }
-
-        /* Card 4: Case Study/Experiment */
-        .card-4 .card-content-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            line-height: 1.4;
-            color: var(--color-accent);
-            margin-bottom: var(--spacing-sm);
-        }
-        .card-4 .card-content-description {
-            font-size: 1rem;
-            color: var(--color-text-secondary);
-        }
-
-        /* Card 5: Hobby/Activity */
-        .card-5 .card-content {
-            font-size: 1.1rem;
-        }
-
-        /* Card 6: Playlist/Music Player */
-        .card-6 {
-            padding: var(--spacing-lg) var(--spacing-lg) calc(var(--spacing-lg) * 1.5);
-            align-items: center;
-        }
-        .card-6 .card-title {
-            margin-bottom: 0;
-        }
-        .music-player-placeholder {
-            margin-top: var(--spacing-md);
-            width: 100%;
-            height: 50px; /* Placeholder height */
-            background-color: var(--color-border);
-            border-radius: var(--spacing-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-            font-style: italic;
-        }
+        .card-2 .card-content { font-size: 1.5rem; font-weight: 700; }
+        .card-2 .time { font-size: 2.5rem; font-weight: 300; color: var(--color-accent); margin-top: var(--spacing-sm); }
+        .subject-list { list-style: none; padding: 0; margin: 0; }
+        .subject-list li { padding: var(--spacing-sm) 0; border-bottom: 1px solid var(--color-border); font-size: 1rem; color: var(--color-text-primary); }
+        .subject-list li:last-child { border-bottom: none; }
+        .card-4 .card-content-title { font-size: 1.3rem; font-weight: 700; line-height: 1.4; color: var(--color-accent); margin-bottom: var(--spacing-sm); }
+        .card-4 .card-content-description { font-size: 1rem; color: var(--color-text-secondary); }
+        .card-5 .card-content { font-size: 1.1rem; }
+        .card-7 .card-content { font-size: 1rem; line-height: 1.6; color: var(--color-text-primary); }
+        .card-7 .card-title { color: var(--color-accent); }
+        .card-6 { padding: var(--spacing-lg) var(--spacing-lg) calc(var(--spacing-lg) * 1.5); align-items: center; }
+        .music-player-placeholder { margin-top: var(--spacing-md); width: 100%; height: 50px; background-color: var(--color-border); border-radius: var(--spacing-sm); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: 0.9rem; font-style: italic; }
     </style>
 </head>
 <body>
@@ -241,9 +166,9 @@
                 </div>
 
                 <div class="social-links">
-                    <a href="#">LinkedIn</a>
-                    <a href="#">GitHub</a>
-                    <a href="#">UMT Portal</a>
+                    <a href="#" target="_blank">LinkedIn</a>
+                    <a href="#" target="_blank">GitHub</a>
+                    <a href="#" target="_blank">UMT Portal</a>
                 </div>
             </div>
 
@@ -251,7 +176,7 @@
                 <p class="card-title">Location</p>
                 <div class="card-content">
                     <p>UMT, Kuala Nerus</p>
-                    <p class="time">[2:32 PM]</p>
+                    <p class="time" id="current-time">3:55 PM</p>
                 </div>
             </div>
 
@@ -275,6 +200,12 @@
                 <p class="card-title">Hobby</p>
                 <p class="card-content">Watching Movies 🎬 (Focusing on scientific documentaries and historical fiction).</p>
             </div>
+            
+            <div class="bento-card card-7">
+                <p class="card-title">Why Food Tech Matters in Malaysia</p>
+                <p class="card-content">Sustainable food security is crucial for our future. By optimizing local processing methods, we can reduce waste and improve nutrition.</p>
+            </div>
+
 
             <div class="bento-card card-6">
                 <p class="card-title">Current Soundtrack</p>
@@ -285,5 +216,22 @@
 
         </div>
     </div>
+
+    <script>
+        // Dynamic Time Update
+        function updateTime() {
+            const now = new Date();
+            // Format time as H:MM AM/PM
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            document.getElementById('current-time').textContent = timeString;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
 </body>
 </html>
